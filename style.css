@@ -25,6 +25,7 @@ p {
 
 .container {
     max-width: 1000px; 
+}
 
 .custom-title {
     font-size: 6em; 
@@ -94,18 +95,63 @@ p {
     height: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     h1, h2 {
+        text-align: center;
+        margin-left: 0px;
         margin-top: 20px;
         margin-bottom: 20px;
         text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7); 
     }
 
+    h2 {
+        margin-top: 250px;
+    }
+
     body {
         text-align: center;
+        margin-left: 40px;
+        margin-right: 40px;
         font-family: "Retrokia Caps Rough"; 
         background-color: #d2c8b4; 
         color: #403f3f;
         font-size: 20px;
     }
+
+    img {
+        display: none;
+    }
+
+    .melon-img {
+        top: 500px;
+        left: 350px;
+        width: 200px;
+        height: auto;
+        display: flex;
+    }
+
+    .gpad-img {
+        top: 3000px;
+        left: 350px;
+        width: 200px;
+        height: auto;
+        display: flex;
+    }
+
+    .dove-img {
+        top: 2100px;
+        right: 350px;
+        width: 200px;
+        height: auto;
+        display: block;
+    }
+
+    .gboy-img {
+        top: 1020px;
+        right: 350px;
+        width: 200px;
+        height: auto;
+        display: block;
+    }
+
 }
