@@ -1,5 +1,12 @@
+@font-face {
+    font-family: 'RetrokiaCaps';
+    src: url('fonts/RetrokiaCapsRough.otf') format('opentype'); /* Adjust the path to your font file */
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: "Retrokia Caps Rough"; 
+    font-family: "RetrokiaCaps"; 
     background-color: #d2c8b4; 
     color: #403f3f;
 }
