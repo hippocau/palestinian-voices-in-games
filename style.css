@@ -31,7 +31,7 @@ p {
 }
 
 .container {
-    max-width: 1000px; 
+    max-width: 800px; 
 }
 
 .custom-title {
@@ -63,7 +63,7 @@ p {
 }
 
 .gboy-img {
-    top: 800px;
+    top: 900px;
     right: -250px;
     width: 200px;
     height: auto;
@@ -77,26 +77,26 @@ p {
 }
 
 .brush-img {
-    top: 1300px;
+    top: 1500px;
     right: -275px;
 }
 
 .dice-img {
-    top: 1000px;
+    top: 1200px;
     left: -300px;
     width: 250px;
     height: auto;
 }
 
 .gpad-img {
-    top: 1850px;
+    top: 2150px;
     left: -300px;
     width: 250px;
     height: auto;
 }
 
 .dove-img {
-    top: 1850px;
+    top: 2150px;
     right: -300px;
     width: 250px;
     height: auto;
@@ -105,7 +105,7 @@ p {
 @media (max-width: 1000px) {
     h1, h2 {
         text-align: center;
-        margin-left: 0px;
+        margin-left: -50px;
         margin-top: 20px;
         margin-bottom: 20px;
         text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7); 
@@ -119,7 +119,7 @@ p {
         text-align: center;
         margin-left: 40px;
         margin-right: 40px;
-        font-family: "Retrokia Caps Rough"; 
+        font-family: "RetrokiaCaps"; 
         background-color: #d2c8b4; 
         color: #403f3f;
         font-size: 20px;
@@ -131,31 +131,31 @@ p {
 
     .melon-img {
         top: 500px;
-        left: 350px;
+        left: 300px;
         width: 200px;
         height: auto;
         display: flex;
     }
 
     .gpad-img {
-        top: 3000px;
-        left: 350px;
+        top: 3150px;
+        left: 300px;
         width: 200px;
         height: auto;
         display: flex;
     }
 
     .dove-img {
-        top: 2100px;
-        right: 350px;
+        top: 2200px;
+        right: 300px;
         width: 200px;
         height: auto;
         display: block;
     }
 
     .gboy-img {
-        top: 1020px;
-        right: 350px;
+        top: 1050px;
+        right: 300px;
         width: 200px;
         height: auto;
         display: block;
