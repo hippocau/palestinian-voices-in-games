@@ -1,0 +1,37 @@
+body {
+    font-family: "Retrokia Caps Rough"; 
+    background-color: #d2c8b4; 
+    color: #403f3f;
+}
+
+h1, h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+	text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7); 
+}
+
+h2 {
+	margin-left: -100px;
+}
+
+h1 {
+	font-size: 6em;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px; 
+
+.custom-title {
+    font-size: 6em; 
+    display: block; 
+}
+
+.custom-title .second-part {
+	display: block; 
+    font-size: 0.5em; 
+}
