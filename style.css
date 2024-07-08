@@ -35,3 +35,77 @@ p {
 	display: block; 
     font-size: 0.5em; 
 }
+
+.position-relative {
+    position: relative;
+}
+.absolute-image {
+    position: absolute;
+    top: 0;
+}
+
+.melon-img {
+    top: 50px;
+    left: -300px;
+}
+
+.kite-img {
+    top: 30px;
+    right: -250px;
+}
+
+.gboy-img {
+    top: 800px;
+    right: -250px;
+    width: 200px;
+    height: auto;
+}
+
+.olives-img {
+    top: 450px;
+    left: -350px;
+    width: 250px;
+    height: auto;
+}
+
+.brush-img {
+    top: 1300px;
+    right: -275px;
+}
+
+.dice-img {
+    top: 1000px;
+    left: -300px;
+    width: 250px;
+    height: auto;
+}
+
+.gpad-img {
+    top: 1850px;
+    left: -300px;
+    width: 250px;
+    height: auto;
+}
+
+.dove-img {
+    top: 1850px;
+    right: -300px;
+    width: 250px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    h1, h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7); 
+    }
+
+    body {
+        text-align: center;
+        font-family: "Retrokia Caps Rough"; 
+        background-color: #d2c8b4; 
+        color: #403f3f;
+        font-size: 20px;
+    }
+}
