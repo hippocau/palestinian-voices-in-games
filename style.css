@@ -25,6 +25,10 @@ h1 {
 	font-size: 6em;
 }
 
+.h1bis {
+	font-size: 3em;
+}
+
 p {
     font-size: 1.1em;
     line-height: 1.6;
@@ -100,6 +104,12 @@ p {
     right: -300px;
     width: 250px;
     height: auto;
+}
+
+.supported-by {
+    margin: 30px;
+    height: 150px;
+    filter: brightness(0) saturate(100%) invert(17%) sepia(11%) saturate(421%) hue-rotate(0deg) brightness(91%) contrast(85%);
 }
 
 @media (max-width: 1000px) {
