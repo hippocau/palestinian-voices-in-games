@@ -1,194 +1,345 @@
 @font-face {
-    font-family: 'RetrokiaCaps';
-    src: url('fonts/RetrokiaCapsRough.otf') format('opentype'); /* Adjust the path to your font file */
-    font-weight: normal;
-    font-style: normal;
+  font-family: "RetrokiaCaps";
+  src: url("fonts/RetrokiaCapsRough.otf") format("opentype"); /* Adjust the path to your font file */
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
-    font-family: "RetrokiaCaps"; 
-    background-color: #d2c8b4; 
-    color: #403f3f;
+  font-family: "RetrokiaCaps";
+  background-color: #d2c8b4;
+  color: #403f3f;
 }
 
-h1, h2 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-	text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7); 
+h1,
+h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7);
 }
 
 h2 {
-	margin-left: -100px;
+  margin-left: -100px;
 }
 
 h1 {
-	font-size: 6em;
+  font-size: 6em;
 }
 
 .h1bis {
-	font-size: 2.5em;
+  font-size: 2.5em;
 }
 
 p {
-    font-size: 1.1em;
-    line-height: 1.6;
+  font-size: 1.1em;
+  line-height: 1.6;
 }
 
 .container {
-    max-width: 800px; 
+  max-width: 800px;
 }
 
 .custom-title {
-    font-size: 6em; 
-    display: block; 
+  font-size: 6em;
+  display: block;
 }
 
 .custom-title .second-part {
-	display: block; 
-    font-size: 0.5em; 
+  display: block;
+  font-size: 0.5em;
 }
 
 .position-relative {
-    position: relative;
+  position: relative;
 }
 .absolute-image {
-    position: absolute;
-    top: 0;
+  position: absolute;
+  top: 0;
 }
 
 .melon-img {
-    top: 50px;
-    left: -300px;
+  top: 50px;
+  left: -300px;
 }
 
 .kite-img {
-    top: 30px;
-    right: -250px;
+  top: 30px;
+  right: -250px;
 }
 
 .gboy-img {
-    top: 900px;
-    right: -250px;
-    width: 200px;
-    height: auto;
+  top: 900px;
+  right: -250px;
+  width: 200px;
+  height: auto;
 }
 
 .olives-img {
-    top: 450px;
-    left: -350px;
-    width: 250px;
-    height: auto;
+  top: 450px;
+  left: -350px;
+  width: 250px;
+  height: auto;
 }
 
 .brush-img {
-    top: 1500px;
-    right: -275px;
+  top: 1500px;
+  right: -275px;
 }
 
 .dice-img {
-    top: 1200px;
-    left: -350px;
-    width: 250px;
-    height: auto;
+  top: 1200px;
+  left: -350px;
+  width: 250px;
+  height: auto;
 }
 
 .gpad-img {
-    top: 2150px;
-    left: -300px;
-    width: 250px;
-    height: auto;
+  top: 2150px;
+  left: -300px;
+  width: 250px;
+  height: auto;
 }
 
 .dove-img {
-    top: 2150px;
-    right: -300px;
-    width: 250px;
-    height: auto;
+  top: 2150px;
+  right: -300px;
+  width: 250px;
+  height: auto;
 }
 
 .supported-by {
+  margin: 30px;
+  max-height: 110px;
+  max-width: 160px;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(11%) saturate(421%) hue-rotate(0deg) brightness(91%) contrast(85%);
+}
+
+@media (max-width: 1000px) {
+  .text-center {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1,
+  h2 {
+    text-align: center;
+    margin-left: -50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7);
+  }
+
+  h2 {
+    margin-top: 7rem;
+    font-size: 4rem;
+  }
+
+  body {
+    text-align: center;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-family: "RetrokiaCaps";
+    background-color: #d2c8b4;
+    color: #403f3f;
+    font-size: 20px;
+  }
+
+  .absolute-image {
+    /* display: none; */
+    position: absolute;
+    z-index: -10;
+    width: 50px;
+  }
+
+  .melon-img {
+    top: 150px;
+    left: -30px;
+    width: 150px;
+    height: auto;
+    display: flex;
+  }
+
+  .gboy-img {
+    top: 450px;
+    right: -60px;
+    width: 80px;
+    height: auto;
+    display: block;
+  }
+
+  .olives-img {
+    top: 750px;
+    left: -60px;
+    width: 80px;
+    height: auto;
+    display: block;
+  }
+
+  .brush-img {
+    top: 1050px;
+    right: -60px;
+    width: 80px;
+    height: auto;
+    display: block;
+  }
+
+  .gpad-img {
+    top: 1350px;
+    left: -60px;
+    width: 80px;
+    height: auto;
+    display: flex;
+  }
+
+  .dove-img {
+    top: 1650px;
+    right: -60px;
+    width: 80px;
+    height: auto;
+    display: block;
+  }
+
+  .dice-img {
+    top: 1950px;
+    left: -60px;
+    width: 80px;
+    height: auto;
+    display: block;
+  }
+
+  .kite-img {
+    top: 2250px;
+    right: -60px;
+    width: 80px;
+    height: auto;
+    display: block;
+  }
+
+  .supported-by-no-color {
+    margin: 30px;
+    max-height: 110px;
+    max-width: 160px;
+  }
+
+  .supported-by {
     margin: 30px;
     max-height: 110px;
     max-width: 160px;
     filter: brightness(0) saturate(100%) invert(17%) sepia(11%) saturate(421%) hue-rotate(0deg) brightness(91%) contrast(85%);
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .newsletter-form input[type="email"] {
+    width: 280px;
+    max-width: 90%;
+  }
+
+  .newsletter-section {
+    margin: 30px 0;
+    padding: 20px;
+  }
 }
 
-@media (max-width: 1000px) {
+.newsletter-section {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 25px;
+  border-radius: 10px;
+  margin: 40px 0;
+}
 
-    .text-center {
-        flex-direction: column;
-        align-items: center; 
-    }
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-    h1, h2 {
-        text-align: center;
-        margin-left: -50px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7), 5px 5px 0px rgba(168, 160, 144, 0.7); 
-    }
+.newsletter-form input[type="email"] {
+  font-family: "RetrokiaCaps";
+  font-size: 18px;
+  padding: 12px 15px;
+  border: 2px solid #b0504f;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #403f3f;
+  width: 250px;
+  margin: 0;
+}
 
-    h2 {
-        margin-top: 250px;
-    }
+.newsletter-form input[type="email"]:focus {
+  outline: none;
+  border-color: #5d835b;
+  background-color: white;
+}
 
-    body {
-        text-align: center;
-        margin-left: 40px;
-        margin-right: 40px;
-        font-family: "RetrokiaCaps"; 
-        background-color: #d2c8b4; 
-        color: #403f3f;
-        font-size: 20px;
-    }
+.newsletter-form input[type="submit"] {
+  background-color: #b0504f;
+  border-color: #b0504f;
+  color: white;
+  font-family: "RetrokiaCaps";
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  margin: 0;
+}
 
-    .absolute-image {
-        display: none;
-    }
+.newsletter-form input[type="submit"]:hover {
+  background-color: #5d835b;
+  border-color: #5d835b;
+}
 
-    .melon-img {
-        top: 500px;
-        left: 300px;
-        width: 200px;
-        height: auto;
-        display: flex;
-    }
+.contact-grid {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 2rem;
+}
 
-    .gpad-img {
-        top: 3150px;
-        left: 300px;
-        width: 200px;
-        height: auto;
-        display: flex;
-    }
+.action-group {
+  padding: 1.5rem;
+  border: 2px solid #b0504f;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.15);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-    .dove-img {
-        top: 2200px;
-        right: 300px;
-        width: 200px;
-        height: auto;
-        display: block;
-    }
+.action-group p {
+  margin-bottom: 1rem;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #403f3f;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .supported-by-no-color {
-        margin: 30px;
-        max-height: 110px;
-        max-width: 160px;
-        }
+.custom-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: "RetrokiaCaps";
+  font-size: 18px;
+  background-color: #b0504f;
+  border: 2px solid #b0504f;
+  color: white;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  min-width: 120px;
+  margin: 1rem 0;
+}
 
-    .supported-by {
-        margin: 30px;
-        max-height: 110px;
-        max-width: 160px;      
-        filter: brightness(0) saturate(100%) invert(17%) sepia(11%) saturate(421%) hue-rotate(0deg) brightness(91%) contrast(85%);
-    }
-
-    .gboy-img {
-        top: 1050px;
-        right: 300px;
-        width: 200px;
-        height: auto;
-        display: block;
-    }
-
+.custom-btn:hover {
+  background-color: #5d835b;
+  border-color: #5d835b;
 }
