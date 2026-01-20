@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Palestinian Voices in Games - Supported Projects</title>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://palestinian-voices-in-games.com/" />
+    <meta property="og:title" content="Palestinian Voices in Games" />
+    <meta
+      property="og:description"
+      content="A professional network for supporting Palestinian game creators. We connect Palestinian indie game developers with international volunteers and funding partners to help bring their stories to global audiences." />
+    <meta property="og:image" content="https://palestinian-voices-in-games.com/images/pvig.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Palestinian Voices in Games" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://palestinian-voices-in-games.com/" />
+    <meta property="twitter:title" content="Palestinian Voices in Games" />
+    <meta
+      property="twitter:description"
+      content="A professional network for supporting Palestinian game creators. We connect Palestinian indie game developers with international volunteers and funding partners." />
+    <meta property="twitter:image" content="https://palestinian-voices-in-games.com/images/pvig.png" />
+
+    <!-- Additional meta tags -->
+    <meta
+      name="description"
+      content="A professional network for supporting Palestinian game creators. We connect Palestinian indie game developers with international volunteers and funding partners to help bring their stories to global audiences." />
+    <link rel="canonical" content="https://palestinian-voices-in-games.com/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/my-favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/my-favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/my-favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/my-favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/my-favicon/site.webmanifest" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body style="overflow: hidden;">
+
+    <iframe id="ProjectFrame" src="projects/dreams-on-a-pillow.html" style="position: absolute;left: 0;border: none;width: 100vw;height: 100vh;" title="Project description"></iframe>
+
+	<button onclick="ToggleProjectMenu()" class="project-menu-toggle"></button>
+    <div class="project-menu">
+	  <button onclick="ClickProjectButton(0)" class="project-button selected-project">Dreams on a Pillow</button>
+	  <button onclick="ClickProjectButton(1)" class="project-button">Being 2 (working title)</button>
+	  <button onclick="ClickProjectButton(2)" class="project-button">RiYāfah</button>
+	  <button onclick="ClickProjectButton(3)" class="project-button">Pomegranates</button>
+	</div>
+
+	<div><canvas id="TransitionFilter" style="position: fixed;z-index: 10;top: 0;left: 0;width: 100%;height: 100%;pointer-events: none;user-select: none;" /></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+	<script>
+		// Convert a color name or color code into a RGBA array [red, green, blue, alpha]
+		function ColorToRGBA(color) {
+			const cvs = document.createElement("canvas");
+			cvs.width = 1;
+			cvs.height = 1;
+			const ctx = cvs.getContext("2d");
+			ctx.fillStyle = color;
+			ctx.fillRect(0, 0, 1, 1);
+			return ctx.getImageData(0, 0, 1, 1).data;
+		}
+		
+		const EnableTransitions = true; // Turn off to disable the transition animations
+		const TransitionTimeout = 25; // Display refresh rate in milliseconds
+		const TransitionSpeedFadeIn = 1; // Speed factor for the transition step that slowly hides the previous page
+		const TransitionSpeedFadeOut = 1; // Speed factor for the transition step that slowly shows the incoming page
+		
+		// List of project pages, in the same order as the "project-button" buttons
+		const ProjectList = [[TransitionSandNoise_Loop, "projects/dreams-on-a-pillow.html"],
+							[TransitionSwipe_Loop, "projects/being-2.html"],
+							[TransitionWave_Loop, "projects/riyafa.html"],
+							[TransitionTide_Loop, "projects/pomegranates.html"]];
+		
+		// Transition objects
+		const backgroundColor = ColorToRGBA(getComputedStyle(document.body).backgroundColor);
+		const canvas = document.getElementById("TransitionFilter");
+		canvas.width = 300;
+		canvas.height = 300 * screen.height / screen.width;
+		const context = canvas.getContext("2d");
+		const imgdata = context.createImageData(canvas.width, canvas.height);
+		
+		var ProjectPage = ProjectList[0][1]; // Current (or incoming) project page
+		var TransitionFunc = ProjectList[0][0]; // Current (or incoming) transition function
+		var TransitionStep = 0; // 0: no transition, 1: fadein, 2: fadeout
+		var TransitionCounter = 50; // The counter for transitions, usually ranging from 50 to -5 (fadein) or from -5 to 50 (fadeout)
+		
+		// Control the transition's flow (page change, fadein/fadeout loops)
+		function NextLoopCheck(func, fadein, fadeout) {
+			if (TransitionStep == 1) {
+				TransitionCounter -= TransitionSpeedFadeIn;
+				if (fadein) {
+					window.setTimeout(func, TransitionTimeout);
+				} else {
+					TransitionStep = 2;
+					document.getElementById("ProjectFrame").src = ProjectPage;
+					document.getElementById("ProjectFrame").onload = function() {
+						try { document.getElementById("ProjectFrame").contentWindow.scrollTo(0, 400); }
+						catch (err) {}
+					}
+					window.setTimeout(TransitionFunc, TransitionTimeout);
+				}
+			} else {
+				TransitionCounter += TransitionSpeedFadeOut;
+				if (fadeout) {
+					window.setTimeout(func, TransitionTimeout);
+				} else {
+					TransitionStep = 0;
+					canvas.hidden = true;
+				}
+			}
+		}
+		
+		// A transition that looks like a circular wave propagating through the page
+		function TransitionWave_Loop() {
+			const centerx = canvas.width / 2;
+			const centery = canvas.height / 2;
+			var x, y, imgindex, alpha;
+			var hasalpha = false;
+			for (var x = 0; x < canvas.width; x++) {
+				for (var y = 0; y < canvas.height; y++) {
+					imgindex = (canvas.width * y + x) * 4;
+					var dist = Math.sqrt((x - centerx) * (x - centerx) + (y - centery) * (y - centery));
+					if (2 * TransitionCounter - 50 > dist) {
+						alpha = 0;
+					} else {
+						hasalpha = true;
+						alpha = (1 + Math.cos(0.5 * dist - TransitionCounter)) / 2;
+						alpha /= Math.max(0, dist - 2 * TransitionCounter) + 1;
+						alpha = 1 - alpha;
+						alpha /= Math.max(0, 0.2 * TransitionCounter - 0.1 * dist) + 1;
+					}
+					imgdata.data[imgindex] = backgroundColor[0];
+					imgdata.data[imgindex + 1] = backgroundColor[1];
+					imgdata.data[imgindex + 2] = backgroundColor[2];
+					imgdata.data[imgindex + 3] = alpha * 0xFF;
+				}
+			}
+			context.putImageData(imgdata, 0, 0);
+			NextLoopCheck(TransitionWave_Loop, TransitionCounter >= -5, hasalpha);
+		}
+		
+		// A transition that looks like granularity spreading
+		function TransitionSandNoise_Loop() {
+			var x, y, imgindex, alpha;
+			for (var x = 0; x < canvas.width; x++) {
+				for (var y = 0; y < canvas.height; y++) {
+					imgindex = (canvas.width * y + x) * 4;
+					alpha = Math.min(Math.max(Math.random(), 1 - 0.04 * TransitionCounter), 1 - 0.02 * TransitionCounter);
+					imgdata.data[imgindex] = backgroundColor[0];
+					imgdata.data[imgindex + 1] = backgroundColor[1];
+					imgdata.data[imgindex + 2] = backgroundColor[2];
+					imgdata.data[imgindex + 3] = alpha * 0xFF;
+				}
+			}
+			context.putImageData(imgdata, 0, 0);
+			NextLoopCheck(TransitionSandNoise_Loop, TransitionCounter >= -5, TransitionCounter < 50);
+		}
+		
+		// A simple transition that opens vertically
+		function TransitionSwipe_Loop() {
+			var x, y, imgindex, alpha;
+			for (var x = 0; x < canvas.width; x++) {
+				for (var y = 0; y < canvas.height; y++) {
+					imgindex = (canvas.width * y + x) * 4;
+					alpha = Math.min(1, Math.max(0, Math.sign(y - canvas.height / 2) * Math.cos(10 * x / canvas.width) + Math.abs(y - canvas.height / 2) * 20 / canvas.height - TransitionCounter / 5));
+					imgdata.data[imgindex] = backgroundColor[0];
+					imgdata.data[imgindex + 1] = backgroundColor[1];
+					imgdata.data[imgindex + 2] = backgroundColor[2];
+					imgdata.data[imgindex + 3] = alpha * 0xFF;
+				}
+			}
+			context.putImageData(imgdata, 0, 0);
+			NextLoopCheck(TransitionSwipe_Loop, TransitionCounter >= -5, TransitionCounter < 50);
+		}
+		
+		// A transition that looks like a raising tide
+		function TransitionTide_Loop() {
+			var x, y, imgindex, alpha;
+			for (var x = 0; x < canvas.width; x++) {
+				for (var y = 0; y < canvas.height; y++) {
+					imgindex = (canvas.width * y + x) * 4;
+					alpha = Math.min(1, Math.max(0, 20 * (y / canvas.height - TransitionCounter / 50) + Math.sin(20 * x / canvas.width + 0.8 * TransitionCounter + 15 * Math.tan(1.1 * (y / canvas.height - 0.5))) - (y / canvas.height - 0.5)));
+					imgdata.data[imgindex] = backgroundColor[0];
+					imgdata.data[imgindex + 1] = backgroundColor[1];
+					imgdata.data[imgindex + 2] = backgroundColor[2];
+					imgdata.data[imgindex + 3] = alpha * 0xFF;
+				}
+			}
+			context.putImageData(imgdata, 0, 0);
+			NextLoopCheck(TransitionTide_Loop, TransitionCounter >= -5, TransitionCounter < 50);
+		}
+		
+		// Initialise a transition process
+		function DoTransition(func, nextpage) {
+			if (!EnableTransitions) {
+				document.getElementById("ProjectFrame").src = nextpage;
+				TransitionFunc = func;
+				ProjectPage = nextpage;
+				return;
+			}
+			if (TransitionStep != 0)
+				return;
+			canvas.hidden = false;
+			TransitionStep = 1;
+			TransitionCounter = 50;
+			window.setTimeout(TransitionFunc, TransitionTimeout);
+			TransitionFunc = func;
+			ProjectPage = nextpage;
+		}
+		
+		// Perform a transition and update the button corresponding to the incoming project page
+		function ClickProjectButton(index) {
+			var targetProject = ProjectList[index];
+			if (ProjectPage == targetProject[1])
+				return;
+			if (TransitionStep == 0) {
+				DoTransition(targetProject[0], targetProject[1]);
+			} else if (TransitionStep == 1) {
+				TransitionFunc = targetProject[0];
+				ProjectPage = targetProject[1];
+			} else { // TransitionStep == 2
+				TransitionStep = 1;
+				TransitionFunc = targetProject[0];
+				ProjectPage = targetProject[1];
+			}
+			var projectButtons = document.getElementsByClassName("project-button");
+			for (var btn of projectButtons)
+				btn.classList.remove("selected-project");
+			projectButtons[index].classList.add("selected-project");
+		}
+		
+		// Show/hide the project menu
+		function ToggleProjectMenu() {
+			var projectButtons = document.getElementsByClassName("project-menu");
+			for (var btn of projectButtons)
+				btn.hidden = !btn.hidden;
+		}
+	</script>
+  </body>
+</html>
