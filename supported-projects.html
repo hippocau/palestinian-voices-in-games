@@ -381,7 +381,7 @@
 		// Display the project page specified in the URL if any, or the first one
 		const searchParams = new URLSearchParams(window.location.search);
 		var projectIndex = searchParams.has("project") ? searchParams.get("project") : 0;
-		if (!(projectIndex >= 0 || projectIndex < ProjectList.length))
+		if (!(projectIndex >= 0 && projectIndex < ProjectList.length))
 			projectIndex = 0;
 		document.getElementById("ProjectFrame").src = ProjectList[projectIndex][1];
 		TransitionFunc = ProjectList[projectIndex][0];
