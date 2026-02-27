@@ -168,7 +168,7 @@
 			const projectFrame = document.getElementById("ProjectFrame");
 			try { ProjectFrame.contentWindow.scrollTo(0, 400); }
 			catch {}
-			var pageElements = ProjectFrame.contentDocument?.getElementsByClassName("project-page");
+			var pageElements = ProjectFrame.contentDocument?.getElementsByClassName("project-card");
 			if (pageElements?.length > 0) {
 				pageElements = [...pageElements];
 				if (ShowAllProjects) {
@@ -188,7 +188,7 @@
 							if (allProjectCounter <= 0) {
 								// ... and append their content to the main page once they all loaded
 								for (pageIFrame of allProjectPages) {
-									const pageTokens = pageIFrame.contentDocument?.getElementsByClassName("project-page");
+									const pageTokens = pageIFrame.contentDocument?.getElementsByClassName("project-card");
 									if (pageTokens != null) {
 										for (var pageToken of pageTokens) {
 											pageElements[pageElements.length - 1].insertAdjacentElement("afterend", pageToken);
