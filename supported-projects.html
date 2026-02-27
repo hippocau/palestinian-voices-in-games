@@ -44,22 +44,86 @@
   </head>
   <body style="overflow: hidden;">
 
-    <iframe id="ProjectFrame" src="projects/dreams-on-a-pillow.html" style="position: absolute;left: 0;border: none;width: 100vw;height: 100vh;" title="Project description"></iframe>
+    <iframe id="ProjectFrame" src="" style="position: absolute;left: 0;border: none;width: 100vw;height: 100vh;" title="Project description"></iframe>
 
-	<button onclick="ToggleProjectMenu()" class="project-menu-toggle"></button>
+    <div id="ProjectFooter" hidden>
+      <div class="container mt-5 position-relative">
+
+        <!-- "How It Works": do not include -->
+        <!-- 
+        <section class="my-5">
+          <h2>How It Works</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Volunteer Network</h4>
+              <p>
+                International professionals pledge hours to mentor, advise, or otherwise support selected Palestinian projects. Volunteers of all
+                disciplines, both in and around game development, are needed and welcome!
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h4>Funding</h4>
+              <p>
+                We are currently brainstorming ways to connect creators with prospective financing sources, from donations of all sizes to investors and
+                publishers.
+              </p>
+            </div>
+          </div>
+        </section>
+        -->
+
+        <!-- "Get Involved": do not include -->
+        <!-- 
+        <section class="my-5">
+          <h2>Get Involved</h2>
+          <div class="contact-grid">
+            <div class="action-group">
+              <p>Want to sign up to volunteer your time or offer financial support?</p>
+              <div class="text-center">
+                <a href="https://forms.gle/hHKjnMYMjmo3dDmo7" class="btn btn-primary custom-btn">Join us!</a>
+              </div>
+            </div>
+            <div class="action-group">
+              <p>Are you a Palestinian game creator looking for support?</p>
+              <div class="text-center">
+                <a href="https://forms.gle/U6goepMRjowgJN2U6" class="btn btn-primary custom-btn">Request support!</a>
+              </div>
+            </div>
+            <div class="action-group">
+              <p>Have questions? Want to learn more? Reach out!</p>
+              <div class="text-center">
+                <a href="mailto:palestinianvoicesingames@gmail.com" class="btn btn-primary custom-btn">Email Us</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        -->
+
+        <!-- "News letter" section: include -->
+        <div class="newsletter-section">
+          <p>
+            <strong>Additional projects</strong> of various sizes are currently being reviewed and the network continues to expand its roster of
+            volunteers and industry partners.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="ToggleProjectMenu(true)" class="project-menu-toggle"></button>
     <div class="project-menu">
-	  <button onclick="ClickProjectButton(0)" class="project-button selected-project">Dreams on a Pillow</button>
-	  <button onclick="ClickProjectButton(1)" class="project-button">Being 2 (working title)</button>
-	  <button onclick="ClickProjectButton(2)" class="project-button">RiYāfah</button>
-	  <button onclick="ClickProjectButton(3)" class="project-button">Pomegranates</button>
-	</div>
+      <h3>Projects</h3>
+      <button onclick="ClickProjectButton(0)" class="project-button selected-project">Dreams on a Pillow</button>
+      <button onclick="ClickProjectButton(1)" class="project-button">Being 2 (working title)</button>
+      <button onclick="ClickProjectButton(2)" class="project-button">RiYafa</button>
+      <button onclick="ClickProjectButton(3)" class="project-button">Pomegranates</button>
+    </div>
 
-	<div><canvas id="TransitionFilter" style="position: fixed;z-index: 10;top: 0;left: 0;width: 100%;height: 100%;pointer-events: none;user-select: none;" /></div>
+    <div><canvas id="TransitionFilter" style="position: fixed;z-index: 10;top: 0;left: 0;width: 100%;height: 100%;pointer-events: none;user-select: none;" /></div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	
+
 	<script>
 	{
 		// Convert a color name or color code into a RGBA array [red, green, blue, alpha]
@@ -86,6 +150,7 @@
 		
 		// Transition objects
 		const backgroundColor = ColorToRGBA(getComputedStyle(document.body).backgroundColor);
+		const projectFooter = document.getElementById("ProjectFooter");
 		const canvas = document.getElementById("TransitionFilter");
 		canvas.width = 300;
 		canvas.height = 300 * screen.height / screen.width;
@@ -96,6 +161,53 @@
 		var TransitionFunc = ProjectList[0][0]; // Current (or incoming) transition function
 		var TransitionStep = 0; // 0: no transition, 1: fadein, 2: fadeout
 		var TransitionCounter = 50; // The counter for transitions, usually ranging from 50 to -5 (fadein) or from -5 to 50 (fadeout)
+		var ShowAllProjects = false; // When enabled, all the projects are displayed at once on the same page
+		
+		// What happens after a project page is loaded
+		function OnProjectPageLoad() {
+			const projectFrame = document.getElementById("ProjectFrame");
+			try { ProjectFrame.contentWindow.scrollTo(0, 400); }
+			catch {}
+			var pageElements = ProjectFrame.contentDocument?.getElementsByClassName("project-card");
+			if (pageElements?.length > 0) {
+				pageElements = [...pageElements];
+				if (ShowAllProjects) {
+					// ShowAllProjects mode: create a hidden <iframe> for each project page not loaded yet...
+					var allProjectPages = [];
+					var allProjectCounter = 0;
+					for (var page of ProjectList) {
+						if (ProjectFrame.src.endsWith(page[1]))
+							continue;
+						var pageIFrame = document.createElement("iframe");
+						allProjectPages.push(pageIFrame);
+						allProjectCounter++;
+						pageIFrame.hidden = true;
+						pageIFrame.src = page[1];
+						pageIFrame.onload = function() {
+							allProjectCounter--;
+							if (allProjectCounter <= 0) {
+								// ... and append their content to the main page once they all loaded
+								for (pageIFrame of allProjectPages) {
+									const pageTokens = pageIFrame.contentDocument?.getElementsByClassName("project-card");
+									if (pageTokens != null) {
+										for (var pageToken of pageTokens) {
+											pageElements[pageElements.length - 1].insertAdjacentElement("afterend", pageToken);
+											pageElements.push(pageToken);
+										}
+									}
+								}
+								pageElements[pageElements.length - 1].insertAdjacentHTML("afterend", projectFooter.innerHTML);
+							}
+						};
+						document.body.appendChild(pageIFrame);
+					}
+				} else {
+					// In normal mode: just append (a duplicate of) the footer
+					pageElements[pageElements.length - 1].insertAdjacentHTML("afterend", projectFooter.innerHTML);
+				}
+			}
+		}
+		document.getElementById("ProjectFrame").onload = OnProjectPageLoad;
 		
 		// Control the transition's flow (page change, fadein/fadeout loops)
 		function NextLoopCheck(func, fadein, fadeout) {
@@ -106,10 +218,6 @@
 				} else {
 					TransitionStep = 2;
 					document.getElementById("ProjectFrame").src = ProjectPage;
-					document.getElementById("ProjectFrame").onload = function() {
-						try { document.getElementById("ProjectFrame").contentWindow.scrollTo(0, 400); }
-						catch (err) {}
-					}
 					window.setTimeout(TransitionFunc, TransitionTimeout);
 				}
 			} else {
@@ -223,7 +331,15 @@
 			ProjectPage = nextpage;
 		}
 		
-		// Perform a transition and update the button corresponding to the incoming project page
+		// Update which button is selected according to the current or incoming project page
+		function UpdateSelectedProjectButton(index) {
+			var projectButtons = document.getElementsByClassName("project-button");
+			for (var btn of projectButtons)
+				btn.classList.remove("selected-project");
+			projectButtons[index].classList.add("selected-project");
+		}
+		
+		// Perform a transition and update the project button
 		function ClickProjectButton(index) {
 			var targetProject = ProjectList[index];
 			if (ProjectPage == targetProject[1])
@@ -238,17 +354,45 @@
 				TransitionFunc = targetProject[0];
 				ProjectPage = targetProject[1];
 			}
-			var projectButtons = document.getElementsByClassName("project-button");
-			for (var btn of projectButtons)
-				btn.classList.remove("selected-project");
-			projectButtons[index].classList.add("selected-project");
+			UpdateSelectedProjectButton(index);
 		}
 		
 		// Show/hide the project menu
-		function ToggleProjectMenu() {
-			var projectButtons = document.getElementsByClassName("project-menu");
-			for (var btn of projectButtons)
-				btn.hidden = !btn.hidden;
+		const buttonToggle = document.getElementsByClassName("project-menu-toggle")[0];
+		const buttonInitialX = buttonToggle.style.left;
+		const projectMenu = document.getElementsByClassName("project-menu")[0];
+		var buttonToggleHidden = false;
+		function ToggleProjectMenu(applyTransition) {
+			if (applyTransition) {
+				buttonToggle.classList.remove("disable-transition");
+				projectMenu.classList.remove("disable-transition");
+			} else {
+				buttonToggle.classList.add("disable-transition");
+				projectMenu.classList.add("disable-transition");
+			}
+			buttonToggleHidden = !buttonToggleHidden;
+			buttonToggle.style.left = buttonToggleHidden ? 0 : buttonInitialX;
+			buttonToggle.style.transform = buttonToggleHidden ? "scaleX(-1)" : "";
+			projectMenu.style.transform = buttonToggleHidden ? "scaleX(0)" : "";
+			for (var entry of projectMenu.children)
+				entry.style.visibility = buttonToggleHidden ? "hidden" : "visible";
+		}
+		
+		// Display the project page specified in the URL if any, or the first one
+		const searchParams = new URLSearchParams(window.location.search);
+		var projectIndex = searchParams.has("project") ? searchParams.get("project") : 0;
+		if (!(projectIndex >= 0 && projectIndex < ProjectList.length))
+			projectIndex = 0;
+		document.getElementById("ProjectFrame").src = ProjectList[projectIndex][1];
+		TransitionFunc = ProjectList[projectIndex][0];
+		ProjectPage = ProjectList[projectIndex][1];
+		UpdateSelectedProjectButton(projectIndex);
+		if (searchParams.has("project")) {
+			ToggleProjectMenu(false);
+		} else {
+			ShowAllProjects = true;
+			projectMenu.hidden = true;
+			buttonToggle.hidden = true;
 		}
 	}
 	</script>
